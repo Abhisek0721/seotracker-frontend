@@ -9,17 +9,24 @@ import Pagination from "@mui/material/Pagination";
 
 import { Toaster } from "react-hot-toast";
 import { formatTimestamp } from "../utils/tableUtils";
-import { useGetDomainListQuery } from "../redux/feature/domainTrackApi";
+import { useGetDomainListQuery, useGetDomainMetricsQuery } from "../redux/feature/domainTrackApi";
 import React, { useEffect, useState } from "react";
 import Spinner from "../ui/Spinner";
+import DomainDetailsModal from "./DomainDetailsModal";
 
-const DomainList = ({domainAddedName}:{domainAddedName: string}) => {
+const DomainList = ({ domainAddedName }: { domainAddedName: string }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 5;
   const { data: domainListData, isLoading, refetch } = useGetDomainListQuery({
     limit,
     pageNumber: currentPage,
   });
+  const [isSelectedDomainModalOpen, setSelectedDomainModalOpen] = useState(false);
+  const [selectedDomainId, setSelectedDomainId] = useState<string | null>(null);
+  const { data: domainMetricsData, isLoading: isDomainMetricsLoading } = useGetDomainMetricsQuery(selectedDomainId, {
+    skip: !selectedDomainId, // Skip query if no domain is selected
+  });
+
 
   const handleChangePage = (event: React.ChangeEvent<unknown>, page: number) => {
     event?.preventDefault();
@@ -30,12 +37,17 @@ const DomainList = ({domainAddedName}:{domainAddedName: string}) => {
     refetch();
   }, [domainAddedName])
 
-  if (isLoading) {
+  if (isLoading || isDomainMetricsLoading) {
     return <Spinner />;
   }
 
   const domainList = domainListData?.data?.domains || [];
   const totalPages = Math.ceil(domainListData?.data?.domainCount / limit);
+
+  const handleViewClick = (domain: any) => {
+    setSelectedDomainId(domain?.id);
+    setSelectedDomainModalOpen(true);
+  };
 
   return (
     <div className="max-w-full overflow-auto mt-10">
@@ -98,7 +110,10 @@ const DomainList = ({domainAddedName}:{domainAddedName: string}) => {
                   </span>
                 </TableCell>
                 <TableCell align="center">
-                  <button className="w-28 py-3 rounded-sm font-semibold bg-[var(--color-brand-500)] text-[var(--color-grey-0)] text-xl tracking-[1px]">
+                  <button
+                    onClick={() => handleViewClick(eachDomain)}
+                    className="w-28 py-3 rounded-sm font-semibold bg-[var(--color-brand-500)] text-[var(--color-grey-0)] text-xl tracking-[1px]"
+                  >
                     View
                   </button>
                 </TableCell>
@@ -119,6 +134,12 @@ const DomainList = ({domainAddedName}:{domainAddedName: string}) => {
           />
         </div>
       )}
+
+      <DomainDetailsModal
+        isOpen={isSelectedDomainModalOpen}
+        setOpenModal={setSelectedDomainModalOpen}
+        domain={isDomainMetricsLoading ? null : domainMetricsData?.data}
+      />
     </div>
   );
 };
