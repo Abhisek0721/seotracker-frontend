@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .headingh1 {
+    @apply text-3xl font-semibold leading-heading;
+  }
+
+  .headingh2 {
+    @apply text-2xl font-semibold leading-heading;
+  }
+
+  .headingh3 {
+    @apply text-2xl font-medium leading-heading;
+  }
+  .editbtn{
+    @apply bg-[var(--color-green-700)] text-[var(--color-brand-50)]  rounded-[2px]  text-center
+  }
+  .line{
+    @apply h-[2px] w-[80%] bg-[var(--color-yellow-700)]
+  }
+  .maincolor{
+    @apply bg-[var(--color-grey-100)]
+  }
+  .bgcolor{
+    @apply bg-[var(--color-brand-200)]
+  }
+  .bgcolor2{
+    @apply bg-[var(--color-green-700)]
+  }
+  .textcolor{
+    @apply text-[var(--color-grey-50)]
+  }
+}
+
