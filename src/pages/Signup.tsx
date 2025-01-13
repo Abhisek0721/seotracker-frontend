@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { Toaster } from "react-hot-toast";
-import logo from "../assets/logo-mentorklub.png";
+import logo from "../assets/logo-seotracker.png";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -47,7 +46,7 @@ function Signup() {
         <div className="flex justify-center">
           <img src={logo} alt="" className="w-[150px] object-cover" />
         </div>
-        <div className="text-center my-4 text-5xl font-semibold">
+        <div className="text-center my-4 text-5xl font-semibold mt-16">
           <h1>Create an account</h1>
         </div>
 

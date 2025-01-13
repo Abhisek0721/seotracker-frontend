@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import Logo from "../assets/logo.jpg";
+import Logo from "../assets/logo-seotracker.png";
 import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
 
 

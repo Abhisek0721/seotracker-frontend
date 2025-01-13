@@ -1,4 +1,4 @@
-import logo from "../assets/logo-mentorklub.png";
+import logo from "../assets/logo-seotracker.png";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate, NavLink } from "react-router-dom"; // Import NavLink from react-router-dom
@@ -43,7 +43,7 @@ function Login() {
         <div className="flex justify-center">
           <img src={logo} alt="" className="w-[150px] object-cover" />
         </div>
-        <div className="text-center pb-14 text-5xl font-semibold">
+        <div className="text-center pb-14 text-5xl font-semibold mt-16">
           <h1>Log in to your account</h1>
         </div>
         <form
